@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="#">
+        <title>Tic Tac Toe</title>
+        <meta charset="UTF-8"/>
+    </head>
+
+    <style>
+        html, body{
+            font-family: Arial, Helvetica, sans-serif;
+            max-height: 100%;
+            max-width: 100%;
+            height: 100vh;
+            /*width: 100vw;*/
+            max-width: 100%;
+            overflow: hidden;
+            background-color: black;
+            display: grid;
+            grid-template-rows: 1fr 1fr 4fr 1fr;
+        }
+
+        .title-line{
+            grid-row: 1;
+            /*background-color: turquoise;*/
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px rgb(237,125,49);
+            font-size: 36px;
+        }
+
+        .game-buttons{
+            grid-row: 2;
+            /*background-color: tomato;*/
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap:10px;
+        }
+        .game-grid{
+            grid-row: 3/6; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /*background-color: yellow;*/
+        }
+
+        .reset{
+            grid-row: 7;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            padding-right: 10px;
+        }
+
+
+
+
+        /* now do the grid individual boxes */
+        .game-grid-items{
+            display: grid;
+            grid-template-areas: 
+            "b1 b2 b3"
+            "b4 b5 b6"
+            "b7 b8 b9";
+            height: 50vh;
+            width: 50vw;
+            color: white;
+            padding-top: 40px;
+        }
+
+        .g-box{
+            font-size: 5em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height:14pt;
+            text-shadow: 2px 2px rgb(237,125,49);
+            
+            
+        }
+
+        #box_11{
+            grid-area: b1;
+        }
+        #box_12{
+            grid-area: b2;
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+        }
+        #box_13{
+            grid-area: b3;
+;
+        }
+        #box_21{
+            grid-area: b4;
+            border-top: 1px solid white;
+            border-bottom: 1px solid white;
+        }
+        #box_22{
+            grid-area: b5;
+            border: 1px solid white;
+        }
+        #box_23{
+            grid-area: b6;
+            border-top: 1px solid white;
+            border-bottom: 1px solid white;
+        }
+        #box_31{
+            grid-area: b7;
+        }
+        #box_32{
+            grid-area: b8;
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+        }
+        #box_33{
+            grid-area: b9;
+
+        }
+
+
+
+
+        /*inputs */
+        input{
+            background-color: rgb(237,125,49);
+        }
+
+
+
+    </style>
+
+
+    <body>
+        <div class="container">
+            <div class="title-line js-title-line">
+                <h1>Tic Tac Toe</h1>
+            </div>
+            <div class="game-buttons js-game-buttons">
+                <input class="computer-btn js-computer-btn" type="button" value="computer">
+                <input class="two-player-btn js-two-player-btn" type="button" value="2 Players">
+            </div>
+            <div class="game-grid js-game-grid">
+                <div class="game-grid-items js-game-items">
+                    <div id="box_11" class="g-box js-g-box">
+                        
+                    </div>
+                    <div id="box_12" class="g-box js-g-box">
+ 
+                    </div>
+                    <div id="box_13" class="g-box js-g-box">
+ 
+                    </div>
+                    <div id="box_21" class="g-box js-g-box">
+  
+                    </div>
+                    <div id="box_22" class="g-box js-g-box">
+  
+                    </div>
+                    <div id="box_23" class="g-box js-g-box">
+
+                    </div>
+                    <div id="box_31" class="g-box js-g-box">
+    
+                    </div>
+                    <div id="box_32" class="g-box js-g-box">
+     
+                    </div>
+                    <div id="box_33" class="g-box js-g-box">
+            
+                    </div>
+                </div>
+
+            </div>
+            <div class="reset">
+                <a class="reset-btn js-reset-btn" title="Play Again/Reset" href="#"><img class="reset-img js-reset-img" src="recycle.svg" style="width:50px;height:50px;" ></a>
+            </div>
+        </div>
+   
+
+
+
+        <script src=script.js></script> 
+
+    </body>
+
+
+</html>
