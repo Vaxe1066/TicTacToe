@@ -103,7 +103,8 @@ const game = (function() {
                array[0][1]==val && array[1][1]==val && array[2][1]==val ||
                array[0][2]==val && array[1][2]==val && array[2][2]==val ||
 
-               array[0][0]==val && array[1][1]==val && array[2][2]==val){
+               array[0][0]==val && array[1][1]==val && array[2][2]==val ||
+               array[0][2]==val && array[1][1]==val && array[2][0]==val){
                    return "win";
                }
             else if (count==9) {
@@ -114,30 +115,34 @@ const game = (function() {
 
 
 
+    const _resetFnc = () =>{
+        array = [[], [], []];
+        //let array = new Array(3);
 
+        /*for (let i = 0; i < array.length; i++) {
+            array[i] = new Array(3);
+        }*/
+
+    
+
+        for (let i=0; i<=2; ++i){
+            for(let j=0; j<=2; ++j){
+                let idx = `${i+1}${j+1}`;
+                const boxId = document.querySelector("#box_" + idx );
+                boxId.textContent=array[i][j];
+                
+            }
+        }
+        count=0;
+
+        return array;
+    }
 
 
     const reset = () =>{
         const resetButton = document.querySelector(".js-reset-img");
         resetButton.addEventListener("click", ()=> {
-            array = [[], [], []];
-            //let array = new Array(3);
-
-            /*for (let i = 0; i < array.length; i++) {
-                array[i] = new Array(3);
-            }*/
-
-        
-
-            for (let i=0; i<=2; ++i){
-                for(let j=0; j<=2; ++j){
-                    let idx = `${i+1}${j+1}`;
-                    const boxId = document.querySelector("#box_" + idx );
-                    boxId.textContent=array[i][j];
-                    
-                }
-            }
-            count=0;
+            array = _resetFnc();
 
         })
 
@@ -149,27 +154,42 @@ const game = (function() {
     
     const clickTest = () =>{
         const allBoxes = document.querySelectorAll(".js-g-box")
+        let test=1;
         allBoxes.forEach(box =>{
             box.addEventListener("click", ()=>{
                 const boxIDName = box.id;
                 //let idx = Number(box.id.replace(/\D+/g, ''));
-                console.log(boxIDName);
-                let text = _clickContentChange(boxIDName, count);
-                _appendToArray(array, boxIDName, text);
-                let res = _checkWin(array);
-                if (res=="win"){
-                    if (text=="x"){
-                        alert("Player 1 Wins")
-                    }
-                    else if(text=="o"){
-                        alert("Player 2 Wins")
-                    }
+                if(test!=1){
+                    array = _resetFnc();
+                    //game.clickTest();
+                    console.log(count);
+                    let text = _clickContentChange(boxIDName, count);
+                    _appendToArray(array, boxIDName, text);
+                    test=1;
+                    count+=1;
                 }
-                else if(res=="tie"){
-                    alert("Its a Tie");
+                else{
+                    console.log(count);
+                    let text = _clickContentChange(boxIDName, count);
+                    _appendToArray(array, boxIDName, text);
+                    let res = _checkWin(array);
+                    if (res=="win"){
+                        if (text=="x"){
+                            alert("Player 1 Wins");
+                            test=0;
+                        }
+                        else if(text=="o"){
+                            alert("Player 2 Wins");
+                            test=0;
+                        }
+                    }
+                    else if(res=="tie"){
+                        alert("Its a Tie");
+                        test=0;
+                    }
+                    console.log(array);
+                    ++count;
                 }
-                console.log(array);
-                ++count;
             })
             array = reset();
         })
