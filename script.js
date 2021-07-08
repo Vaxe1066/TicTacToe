@@ -38,7 +38,20 @@ const displayController = ( function(array) {
 const game = (function() {
 
     let count = 0;
-    let array = [[], [], []];
+    //let array = [[], [], []];
+    //let array = [],
+      //  cols = 3;
+
+    //init the grid matrix
+    //for ( let i = 0; i < cols; i++ ) {
+      //  array[i] = []; 
+    //}
+
+    let array = new Array(3);
+
+    for (let i = 0; i < array.length; i++) {
+        array[i] = new Array(3);
+    }
 
     const _clickContentChange = (idName, count)  =>{
         const boxID = document.querySelector("#"+idName);
@@ -61,9 +74,9 @@ const game = (function() {
         array[row][col] = text;
     }
 
-    let countTest = 0;
+    //let countTest = 0;
     const _checkArryPopulation = (array) =>{
-        //let countTest = 0;
+        let countTest = 0;
         for (let i=0; i<=2; ++i){
             for(let j=0; j<=2; ++j){
                 if(array[i][j]=="x" || array[i][j]=="o"){
@@ -77,28 +90,45 @@ const game = (function() {
 
     const _checkWin = (array) =>{
         const count = _checkArryPopulation(array);
-        if( ( (array[0][0]==array[0][1]&&array[0][1]==array[0][2])) && (array[0].length==3)||
-            ( (array[1][0]==array[1][1]&&array[1][1]==array[1][2]))  && (array[1].length==3) ||
-            ( (array[2][0]==array[2][1]&&array[2][1]==array[2][2]) && (array[2].length==3)) ||
 
-            ( (array[0][0]==array[1][0]&&array[1][0]==array[2][0]) && (array[0][0]!==undefined && array[1][0]!==undefined && array[2][0]!==undefined)) ||
-            ( (array[0][1]==array[1][1]&&array[1][1]==array[2][1]) && (array[0][1]!==undefined && array[1][1]!==undefined && array[2][1]!==undefined)) ||
-            ( (array[0][2]==array[1][2]&&array[1][2]==array[2][2]) && (array[0][2]!==undefined && array[1][2]!==undefined && array[2][2]!==undefined)) ||
-            ( (array[0][0]==array[1][1]&&array[1][1]==array[2][2]) && (array[0][0]!==undefined && array[1][1]!==undefined && array[2][2]!==undefined))
-            
-            ){
-            return ("win");
-        }
-        else if (array[0].length==3 && array[1].length==3 && array[2].length==3){
-            return ("tie");
+        let arr_val = ["x", "o"];
+
+        for(let i=0; i<arr_val.length; ++i){
+            let val = arr_val[i];
+            if(array[0][0]==val && array[0][1]==val && array[0][2]==val ||
+               array[1][0]==val && array[1][1]==val && array[1][2]==val ||
+               array[2][0]==val && array[2][1]==val && array[2][2]==val ||
+
+               array[0][0]==val && array[1][0]==val && array[2][0]==val ||
+               array[0][1]==val && array[1][1]==val && array[2][1]==val ||
+               array[0][2]==val && array[1][2]==val && array[2][2]==val ||
+
+               array[0][0]==val && array[1][1]==val && array[2][2]==val){
+                   return "win";
+               }
+            else if (count==9) {
+                return "tie"
+            }
         }
     }
+
+
+
+
 
 
     const reset = () =>{
         const resetButton = document.querySelector(".js-reset-img");
         resetButton.addEventListener("click", ()=> {
             array = [[], [], []];
+            //let array = new Array(3);
+
+            /*for (let i = 0; i < array.length; i++) {
+                array[i] = new Array(3);
+            }*/
+
+        
+
             for (let i=0; i<=2; ++i){
                 for(let j=0; j<=2; ++j){
                     let idx = `${i+1}${j+1}`;
@@ -110,6 +140,8 @@ const game = (function() {
             count=0;
 
         })
+
+        return array;
 
         
     }
@@ -139,7 +171,7 @@ const game = (function() {
                 console.log(array);
                 ++count;
             })
-            reset();
+            array = reset();
         })
     
     }
@@ -153,4 +185,4 @@ const game = (function() {
 })();
 
 game.clickTest();
-game.reset();
+//game.reset();
